@@ -1,33 +1,41 @@
 version: '3.8'
 
 services:
-  fdp-dashboard:
-    image: ghcr.io/mdw-nl/fdp-dashboard:main
-    container_name: fdp-dashboard
-    ports:
-      - "8080:8080"
-    networks:
-      - protrait
-  dicomsorter:
-    build: .
+  #fdp-dashboard:
+  #  image: ghcr.io/mdw-nl/fdp-dashboard:main
+  #  container_name: fdp-dashboard
+  #  ports:
+  #    - "8080:8080"
+  #  networks:
+  #    - protrait
+  dicomListener:
+    image: ghcr.io/mdw-nl/dicom-listner:main
     depends_on:
       - postgres
     ports:
       - "104:104"
     environment:
       AE_TITLE: ${AE_TITLE}
+    volumes:
+      - /Users/alessioromita/Documents/setting_protrait_deploymant/config_list.yaml:/dicomsorter/Config/config.yaml
+
     networks:
       - protrait
-  dvh-calculator:
-    image: ghcr.io/mdw-nl/dvh-calculator:main
+  DVH-consumer:
+    image: ghcr.io/mdw-nl/dvh_consumer:main
+    depends_on:
+        - dicomListener
     container_name: dvh-calculator
+    volumes:
+      - /Users/alessioromita/Documents/setting_protrait_deploymant/config_list.yaml:/DICOM_solver/DICOM_solver/Config/config.yaml
+      - /Users/alessioromita/Documents/data_test_docker:/DICOM_solver/data 
     networks:
       - protrait
-  rdf-converter:
-    image: ghcr.io/mdw-nl/rdf-converter:main
-    container_name: rdf-converter
-    networks:
-      - protrait
+  #rdf-converter:
+  #  image: ghcr.io/mdw-nl/rdf-converter:main
+  #  container_name: rdf-converter
+  #  networks:
+  #    - protrait
   postgres:
     image: postgres:latest
     container_name: postgres
@@ -42,7 +50,7 @@ services:
     networks:
       - protrait
   graphdb:
-    image: ontotext/graphdb:latest
+    image: ontotext/graphdb:10.6.4
     container_name: graphdb
     ports:
       - "7200:7200"
