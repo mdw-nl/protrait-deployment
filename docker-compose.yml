@@ -8,6 +8,14 @@ services:
   #    - "8080:8080"
   #  networks:
   #    - protrait
+
+  api-server:
+    image: ghcr.io/mdw-nl/api-protrait:main
+    container_name: api-server
+    ports:
+      - "8000:8000"
+    networks:
+      - protrait
   dicomListener:
     image: ghcr.io/mdw-nl/dicom-listner:main
     depends_on:
@@ -21,6 +29,7 @@ services:
 
     networks:
       - protrait
+
   DVH-consumer:
     image: ghcr.io/mdw-nl/dvh_consumer:main
     depends_on:
@@ -36,6 +45,7 @@ services:
   #  container_name: rdf-converter
   #  networks:
   #    - protrait
+
   postgres:
     image: postgres:latest
     container_name: postgres

@@ -10,13 +10,17 @@ postgres:
     host: "postgres"
     port: "5432"
     username: "postgres"
-    password: "testpassword"
+    password: "postgres"
     db: "testdb"
 
 GraphDB:
     host: "graphdb"
     port: "7200"
     repo: "protrait"
+API:
+    host: "api-server"
+    port: "8000"
+
 
 
 dvh-calculations:
