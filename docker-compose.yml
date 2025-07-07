@@ -16,6 +16,7 @@ services:
       - "8000:8000"
     networks:
       - protrait
+
   dicomListener:
     image: ghcr.io/mdw-nl/dicom-listner:main
     depends_on:
@@ -90,6 +91,13 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
+    networks:
+      - protrait
+  fdp-dashboard:
+    image: ghcr.io/mdw-nl/fdp-dashboard:main
+    container_name: fdp-dashboard
+    ports:
+      - "8080:8080"
     networks:
       - protrait
 

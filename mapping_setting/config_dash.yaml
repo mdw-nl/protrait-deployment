@@ -1,0 +1,11 @@
+api:
+    host: "host.docker.internal"
+    API_BASE_URL: "http://localhost:8000"
+    username: "postgres"
+    password: "postgres"
+    db: "postgres"
+graphdb:
+    host: "http://host.docker.internal"
+    port: "7200"
+    repo: "protrait"
+
