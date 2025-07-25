@@ -17,6 +17,9 @@ GraphDB:
     port: "7200"
     repo: "protrait"
 
+API:
+    host: "host.docker.internal"
+    port: "8666"
 
 dvh-calculations:
   -

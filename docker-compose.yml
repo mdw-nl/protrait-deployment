@@ -13,7 +13,7 @@ services:
     image: ghcr.io/mdw-nl/api-protrait:main
     container_name: api-server
     ports:
-      - "8000:8000"
+      - "8666:8000"
     networks:
       - protrait
 
@@ -27,7 +27,7 @@ services:
       AE_TITLE: ${AE_TITLE}
     volumes:
       - /Users/alessioromita/Documents/setting_protrait_deploymant/config_list.yaml:/dicomsorter/Config/config.yaml
-
+      - /Users/alessioromita/Documents/data_test_docker:/dicomsorter/data
     networks:
       - protrait
 
@@ -36,6 +36,8 @@ services:
     depends_on:
         - dicomListener
     container_name: dvh-calculator
+    ports:
+      - "8000:8000"
     volumes:
       - /Users/alessioromita/Documents/setting_protrait_deploymant/config_list.yaml:/DICOM_solver/DICOM_solver/Config/config.yaml
       - /Users/alessioromita/Documents/data_test_docker:/DICOM_solver/data 
@@ -61,7 +63,7 @@ services:
     networks:
       - protrait
   pgadmin:
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:latest
     container_name: pgadmin
     restart: always
     ports:
@@ -91,13 +93,6 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
-    networks:
-      - protrait
-  fdp-dashboard:
-    image: ghcr.io/mdw-nl/fdp-dashboard:main
-    container_name: fdp-dashboard
-    ports:
-      - "8080:8080"
     networks:
       - protrait
 
